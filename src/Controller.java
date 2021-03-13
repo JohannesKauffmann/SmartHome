@@ -3,88 +3,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 import actuators.Actuator;
+import actuators.ActuatorWrapper;
 import commands.Command;
 import facades.Facade;
+import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import mementos.Memento;
 import sensors.Sensor;
 
 public class Controller
 {
-	private HashMap<Actuator, HashMap<String, Command>> actuators;
+	private ArrayList<ActuatorWrapper> actuators;
 	private ArrayList<Sensor> sensors;
 	private HashMap<String, Facade> facades;
-	private ArrayList<Memento> history;
 
 	public Controller()
 	{
-		this.actuators = new HashMap<>();
+		this.actuators = new ArrayList<>();
 		this.sensors = new ArrayList<>();
 		this.facades = new HashMap<>();
-		this.history = new ArrayList<>();
 		initialize();
 	}
 
-	private void addSensor(Sensor s)
+	private void addSensor(Sensor sensor)
 	{
-		this.sensors.add(s);
+		this.sensors.add(sensor);
 	}
 
-	private void addActuator(Actuator a)
+	private void addActuator(Actuator actuator)
 	{
-		this.actuators.put(a, new HashMap<>());
-	}
 
-	private void addCommand(Actuator a, String cName, Command c)
-	{
-		HashMap<String, Command> commands = this.actuators.get(a);
-		if (commands != null)
-		{
-			commands.put(cName, c);
-		}
-	}
-
-	public void executeCommand(String actuatorName, String commandName)
-	{
-		for (Map.Entry<Actuator, HashMap<String, Command>> entry : actuators.entrySet())
-		{
-			if (entry.getKey().getName().equals(actuatorName))
-			{
-				Command c = entry.getValue().get(commandName);
-				if (c != null)
-				{
-					c.execute();
-				}
-				break;
-			}
-		}
+		this.actuators.add(new ActuatorWrapper(actuator));
 	}
 
 	public void executeFacade(String facadeName)
 	{
-
+		Facade facade = this.facades.get(facadeName);
+		if (facade != null)
+		{
+			facade.doAction();
+		}
 	}
-
-//	public void undo(String actuatorName) {
-////		for (Map.Entry<Actuator, ArrayList<Memento>> entry : history.entrySet())
-//		for (int i = this.history.size() - 1; i >= 0; i--)
-//		{
-//			this.history.get(i).getOr
-//			if (a.getName().equals(actuatorName))
-//			{
-//				ArrayList<Memento> mementos = entry.getValue();
-//				mementos.get(mementos.size() - 1).restore();
-//				a.restore(m);
-//				
-//			}
-//		}
-//	}
 
 	/*
 	 * Method for initializing the sensors, facades, commands, actuators, etc.
 	 */
 	private void initialize()
 	{
-
+		// TODO filling the initialize method.
 	}
 
 }
