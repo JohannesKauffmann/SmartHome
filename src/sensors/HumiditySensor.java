@@ -13,7 +13,7 @@ public class HumiditySensor extends Sensor
 	{
 		for (Subscriber subscriber : this.subscribers)
 		{
-			subscriber.update(this.humidity);
+			subscriber.update(this, this.humidity);
 		}
 		
 	}

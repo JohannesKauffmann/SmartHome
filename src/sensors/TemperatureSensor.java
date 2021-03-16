@@ -13,7 +13,7 @@ public class TemperatureSensor extends Sensor
 	{
 		for (Subscriber subscriber : this.subscribers)
 		{
-			subscriber.update(this.temperature);
+			subscriber.update(this, this.temperature);
 		}
 
 	}

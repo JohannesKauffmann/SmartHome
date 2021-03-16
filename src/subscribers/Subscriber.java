@@ -1,6 +1,8 @@
 package subscribers;
 
+import sensors.Sensor;
+
 public interface Subscriber
 {
-	public void update(int value);
+	public void update(Sensor publisher, int value);
 }

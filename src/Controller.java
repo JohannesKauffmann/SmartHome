@@ -3,10 +3,14 @@ import java.util.HashMap;
 
 import actuators.Actuator;
 import actuators.ActuatorWrapper;
+import facades.CoolingFacade;
 import facades.Facade;
+import sensors.HumiditySensor;
 import sensors.Sensor;
+import sensors.TemperatureSensor;
+import subscribers.Subscriber;
 
-public class Controller
+public class Controller implements Subscriber
 {
 	private ArrayList<ActuatorWrapper> actuators;
 	private ArrayList<Sensor> sensors;
@@ -17,7 +21,6 @@ public class Controller
 		this.actuators = new ArrayList<>();
 		this.sensors = new ArrayList<>();
 		this.facades = new HashMap<>();
-		initialize();
 	}
 
 	private void addSensor(Sensor sensor)
@@ -40,12 +43,50 @@ public class Controller
 		}
 	}
 
-	/*
-	 * Method for initializing the sensors, facades, commands, actuators, etc.
-	 */
-	private void initialize()
+	@Override
+	public void update(Sensor publisher, int value)
 	{
-		// TODO filling the initialize method.
+		if (publisher instanceof TemperatureSensor)
+		{
+			if (value <= 20)
+			{
+				Facade heating = this.facades.get("heating");
+				if (heating != null)
+				{
+					heating.doAction();
+				}
+			} else if (value >= 25)
+			{
+				Facade cooling = this.facades.get("cooling");
+				if (cooling != null)
+				{
+					cooling.doAction();
+				}
+			} else
+			{
+				// do nothing
+			}
+		} else if (publisher instanceof HumiditySensor)
+		{
+			if (value <= 40)
+			{
+				Facade humidify = this.facades.get("humidify");
+				if (humidify != null)
+				{
+					humidify.doAction();
+				}
+			} else if (value >= 60)
+			{
+				Facade dry = this.facades.get("dry");
+				if (dry != null)
+				{
+					dry.doAction();
+				}
+			} else
+			{
+				// do nothing
+			}
+		}
 	}
 
 }

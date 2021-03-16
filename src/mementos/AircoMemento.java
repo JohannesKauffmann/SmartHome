@@ -7,7 +7,7 @@ public class AircoMemento implements Memento
 {
 	private AircoModus state;
 	private Airco originator;
-	
+
 	public AircoMemento(Airco originator, AircoModus state)
 	{
 		this.state = state;
@@ -18,7 +18,6 @@ public class AircoMemento implements Memento
 	public void restore()
 	{
 		this.originator.setModus(this.state);
-		
 	}
 
 }
