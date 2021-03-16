@@ -1,13 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import actuators.Actuator;
 import actuators.ActuatorWrapper;
-import commands.Command;
 import facades.Facade;
-import jdk.jshell.spi.ExecutionControl.NotImplementedException;
-import mementos.Memento;
 import sensors.Sensor;
 
 public class Controller
