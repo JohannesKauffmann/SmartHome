@@ -3,7 +3,6 @@ import java.util.HashMap;
 
 import actuators.Actuator;
 import actuators.ActuatorWrapper;
-import facades.CoolingFacade;
 import facades.Facade;
 import sensors.HumiditySensor;
 import sensors.Sensor;
@@ -30,7 +29,6 @@ public class Controller implements Subscriber
 
 	private void addActuator(Actuator actuator)
 	{
-
 		this.actuators.add(new ActuatorWrapper(actuator));
 	}
 
@@ -55,18 +53,21 @@ public class Controller implements Subscriber
 				{
 					heating.doAction();
 				}
-			} else if (value >= 25)
+			}
+			else if (value >= 25)
 			{
 				Facade cooling = this.facades.get("cooling");
 				if (cooling != null)
 				{
 					cooling.doAction();
 				}
-			} else
+			}
+			else
 			{
 				// do nothing
 			}
-		} else if (publisher instanceof HumiditySensor)
+		}
+		else if (publisher instanceof HumiditySensor)
 		{
 			if (value <= 40)
 			{
@@ -75,18 +76,19 @@ public class Controller implements Subscriber
 				{
 					humidify.doAction();
 				}
-			} else if (value >= 60)
+			}
+			else if (value >= 60)
 			{
 				Facade dry = this.facades.get("dry");
 				if (dry != null)
 				{
 					dry.doAction();
 				}
-			} else
+			}
+			else
 			{
 				// do nothing
 			}
 		}
 	}
-
 }

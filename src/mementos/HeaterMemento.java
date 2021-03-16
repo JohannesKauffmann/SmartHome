@@ -10,7 +10,8 @@ public class HeaterMemento implements Memento
 
 	public HeaterMemento(Heater originator, HeaterModus state)
 	{
-
+		this.originator = originator;
+		this.state = state;
 	}
 
 	@Override

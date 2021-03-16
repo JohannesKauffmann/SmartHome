@@ -7,8 +7,9 @@ public class Phone implements Device, Subscriber
 {
 	private String name;
 	private int subcriberValue;
-	
-	public Phone(String name) {
+
+	public Phone(String name)
+	{
 		this.name = name;
 	}
 
@@ -30,12 +31,11 @@ public class Phone implements Device, Subscriber
 		this.subcriberValue = value;
 		this.displayValue(publisher);
 	}
-	
-	public void displayValue(Sensor publisher) {
-		System.out.println("Phone: " + this.name + " got a new value of it's publisher: " + publisher.toString() + "value: " + this.subcriberValue);
+
+	public void displayValue(Sensor publisher)
+	{
+		System.out.println("Phone: " + this.name + " got a new value of it's publisher: " + publisher.toString()
+				+ "value: " + this.subcriberValue);
 	}
-	
-	
-	
 
 }

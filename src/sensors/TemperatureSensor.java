@@ -15,7 +15,6 @@ public class TemperatureSensor extends Sensor
 		{
 			subscriber.update(this, this.temperature);
 		}
-
 	}
 
 	@Override
@@ -24,8 +23,7 @@ public class TemperatureSensor extends Sensor
 		// TODO: measure interval with timer.
 		Random random = new Random();
 		this.temperature = random.nextInt(40);
-		//notify all subscriber of new value.
+		// notify all subscriber of new value.
 		this.notifySubscribers();
 	}
-
 }

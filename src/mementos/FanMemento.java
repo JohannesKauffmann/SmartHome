@@ -6,8 +6,9 @@ public class FanMemento implements Memento
 {
 	private Fan originator;
 	private int rpmLevel;
-	
-	public FanMemento(Fan originator, int rpmLevel) {
+
+	public FanMemento(Fan originator, int rpmLevel)
+	{
 		this.originator = originator;
 		this.rpmLevel = rpmLevel;
 	}
@@ -16,7 +17,5 @@ public class FanMemento implements Memento
 	public void restore()
 	{
 		this.originator.setRpmLevel(this.rpmLevel);
-		
 	}
-
 }

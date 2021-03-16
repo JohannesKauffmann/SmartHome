@@ -19,5 +19,4 @@ public class AircoMemento implements Memento
 	{
 		this.originator.setModus(this.state);
 	}
-
 }

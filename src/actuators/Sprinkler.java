@@ -40,7 +40,8 @@ public class Sprinkler extends Actuator
 		if (this.isSprinkling)
 		{
 			this.isSprinkling = false;
-		} else
+		}
+		else
 		{
 			this.isSprinkling = true;
 		}
@@ -60,5 +61,4 @@ public class Sprinkler extends Actuator
 	{
 		return new SprinklerMemento(this, this.isSprinkling);
 	}
-
 }

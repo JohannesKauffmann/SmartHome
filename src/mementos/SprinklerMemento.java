@@ -18,5 +18,4 @@ public class SprinklerMemento implements Memento
 	{
 		this.originator.setSprinklerState(state);
 	}
-
 }

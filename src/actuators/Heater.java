@@ -46,5 +46,4 @@ public class Heater extends Actuator
 	{
 		return new HeaterMemento(this, this.modus);
 	}
-
 }

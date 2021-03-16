@@ -42,5 +42,4 @@ public class ActuatorWrapper
 			lastState.restore();
 		}
 	}
-
 }

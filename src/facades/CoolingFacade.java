@@ -25,16 +25,16 @@ public class CoolingFacade implements Facade
 			if (actuator instanceof Fan)
 			{
 				((Fan) actuator).setRpmLevel(100);
-			} else if (actuator instanceof Airco)
+			}
+			else if (actuator instanceof Airco)
 			{
 				((Airco) actuator).setModus(AircoModus.COOL);
-			} else
+			}
+			else
 			{
 				continue;
 			}
 			actuator.doOperation();
 		}
-
 	}
-
 }

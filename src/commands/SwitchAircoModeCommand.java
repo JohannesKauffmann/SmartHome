@@ -37,5 +37,4 @@ public class SwitchAircoModeCommand implements Command
 
 		this.receiver.setModus(newModus);
 	}
-
 }
