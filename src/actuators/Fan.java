@@ -6,6 +6,12 @@ import mementos.Memento;
 public class Fan extends Actuator
 {
 	private int rpmLevel;
+	
+	public Fan(String name)
+	{
+		this.name = name;
+		this.rpmLevel = 0;
+	}
 
 	@Override
 	public String getName()
@@ -19,21 +25,25 @@ public class Fan extends Actuator
 		this.name = name;
 		this.rpmLevel = 0;
 	}
-	
-	public void setRpmLevel(int rpmLevel) {
+
+	public void setRpmLevel(int rpmLevel)
+	{
 		this.rpmLevel = rpmLevel;
 	}
-	
-	public int getRpmLevel() {
+
+	public int getRpmLevel()
+	{
 		return this.rpmLevel;
 	}
-	
-	public int incrementRpmLevel() {
+
+	public int incrementRpmLevel()
+	{
 		this.rpmLevel++;
 		return this.rpmLevel;
 	}
-	
-	public int decrementRpmLevel() {
+
+	public int decrementRpmLevel()
+	{
 		this.rpmLevel--;
 		return this.rpmLevel;
 	}
@@ -49,7 +59,4 @@ public class Fan extends Actuator
 	{
 		return new FanMemento(this, this.rpmLevel);
 	}
-	
-	
-
 }

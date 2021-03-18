@@ -2,6 +2,14 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		System.out.println("Hello world!");
+
+	}
+
+	/*
+	 * Method for initializing the sensors, facades, commands, actuators, etc.
+	 */
+	private static void initialize(Controller controller)
+	{
+		// TODO filling the initialize method.
 	}
 }

@@ -6,11 +6,11 @@ import mementos.Memento;
 public class Airco extends Actuator
 {
 	private AircoModus modus;
-	
+
 	public Airco(String name)
 	{
 		this.name = name;
-		//set default modus
+		// set default modus
 		this.modus = AircoModus.COOL;
 	}
 
@@ -24,14 +24,16 @@ public class Airco extends Actuator
 	public void setName(String name)
 	{
 		this.name = name;
-		
+
 	}
-	
-	public void setModus(AircoModus state) {
+
+	public void setModus(AircoModus state)
+	{
 		this.modus = state;
 	}
-	
-	public AircoModus getModus() {
+
+	public AircoModus getModus()
+	{
 		return this.modus;
 	}
 
@@ -67,9 +69,9 @@ public class Airco extends Actuator
 			break;
 		}
 		default:
-			
+
 		}
-		
+
 		System.out.println(operationString);
 	}
 
@@ -78,5 +80,4 @@ public class Airco extends Actuator
 	{
 		return new AircoMemento(this, this.modus);
 	}
-
 }

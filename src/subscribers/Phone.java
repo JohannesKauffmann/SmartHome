@@ -1,13 +1,15 @@
 package subscribers;
 
 import devices.Device;
+import sensors.Sensor;
 
 public class Phone implements Device, Subscriber
 {
 	private String name;
 	private int subcriberValue;
-	
-	public Phone(String name) {
+
+	public Phone(String name)
+	{
 		this.name = name;
 	}
 
@@ -24,17 +26,16 @@ public class Phone implements Device, Subscriber
 	}
 
 	@Override
-	public void update(int value)
+	public void update(Sensor publisher, int value)
 	{
 		this.subcriberValue = value;
-		this.displayValue();
+		this.displayValue(publisher);
 	}
-	
-	public void displayValue() {
-		System.out.println("Phone: " + this.name + " got a new value of it's observer: " + this.subcriberValue);
+
+	public void displayValue(Sensor publisher)
+	{
+		System.out.println("Phone: " + this.name + " got a new value of it's publisher: " + publisher.toString()
+				+ "value: " + this.subcriberValue);
 	}
-	
-	
-	
 
 }

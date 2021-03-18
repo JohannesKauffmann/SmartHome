@@ -13,19 +13,17 @@ public class HumiditySensor extends Sensor
 	{
 		for (Subscriber subscriber : this.subscribers)
 		{
-			subscriber.update(this.humidity);
+			subscriber.update(this, this.humidity);
 		}
-		
 	}
 
 	@Override
 	public void doMeasurement()
 	{
-		//TODO: measure interval with timer.
+		// TODO: measure interval with timer.
 		Random random = new Random();
 		this.humidity = random.nextInt(100);
-		//notify subscribers with new value.
+		// notify subscribers with new value.
 		this.notifySubscribers();
 	}
-
 }
