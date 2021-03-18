@@ -7,6 +7,11 @@ import subscribers.Subscriber;
 public class HumiditySensor extends Sensor
 {
 	private int humidity;
+	
+	public HumiditySensor()
+	{
+		super();
+	}
 
 	@Override
 	public void notifySubscribers()

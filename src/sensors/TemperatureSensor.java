@@ -7,6 +7,11 @@ import subscribers.Subscriber;
 public class TemperatureSensor extends Sensor
 {
 	private int temperature;
+	
+	public TemperatureSensor()
+	{
+		super();
+	}
 
 	@Override
 	public void notifySubscribers()

@@ -9,6 +9,11 @@ public abstract class Sensor
 	protected ArrayList<Subscriber> subscribers;
 	protected String name;
 
+	public Sensor()
+	{
+		this.subscribers = new ArrayList<Subscriber>();
+	}
+
 	public void subscribe(Subscriber subscriber)
 	{
 		this.subscribers.add(subscriber);
