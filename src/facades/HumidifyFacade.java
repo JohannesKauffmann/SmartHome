@@ -9,35 +9,41 @@ import actuators.AircoModus;
 import actuators.Fan;
 import actuators.Heater;
 import actuators.HeaterModus;
+import actuators.Sprinkler;
 
-public class CoolingFacade implements Facade
+public class HumidifyFacade implements Facade
 {
-	private ArrayList<Actuator> coolingDevices;
+	private ArrayList<Actuator> humidifyDevices;
 
-	public CoolingFacade(Actuator... actuators)
+	public HumidifyFacade(Actuator... actuators)
 	{
-		this.coolingDevices = new ArrayList<Actuator>(Arrays.asList(actuators));
+		this.humidifyDevices = new ArrayList<Actuator>(Arrays.asList(actuators));
 	}
 
 	@Override
 	public void doAction()
 	{
-		for (Actuator actuator : this.coolingDevices)
+		for (Actuator actuator : this.humidifyDevices)
 		{
 			if (actuator instanceof Fan)
 			{
-				((Fan) actuator).setRpmLevel(100);
+				((Fan) actuator).setRpmLevel(10);
 			} else if (actuator instanceof Airco)
 			{
 				((Airco) actuator).setModus(AircoModus.COOL);
 			} else if (actuator instanceof Heater)
 			{
 				((Heater) actuator).setModus(HeaterModus.POLAR);
+			} else if (actuator instanceof Sprinkler)
+			{
+				((Sprinkler) actuator).setSprinklerState(true);
 			} else
 			{
 				continue;
 			}
 			actuator.doOperation();
 		}
+
 	}
+
 }
