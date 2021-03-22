@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import actuators.Actuator;
 import actuators.ActuatorWrapper;
 import facades.Facade;
 import sensors.HumiditySensor;
@@ -22,14 +21,19 @@ public class Controller implements Subscriber
 		this.facades = new HashMap<>();
 	}
 
-	private void addSensor(Sensor sensor)
+	public void addSensor(Sensor sensor)
 	{
 		this.sensors.add(sensor);
 	}
 
-	private void addActuator(Actuator actuator)
+	public void addActuator(ActuatorWrapper actuatorWrapper)
 	{
-		this.actuators.add(new ActuatorWrapper(actuator));
+		this.actuators.add(actuatorWrapper);
+	}
+
+	public void addFacade(String name, Facade facade)
+	{
+		this.facades.put(name, facade);
 	}
 
 	public void executeFacade(String facadeName)
@@ -53,39 +57,34 @@ public class Controller implements Subscriber
 				{
 					heating.doAction();
 				}
-			}
-			else if (value >= 25)
+			} else if (value >= 25)
 			{
 				Facade cooling = this.facades.get("cooling");
 				if (cooling != null)
 				{
 					cooling.doAction();
 				}
-			}
-			else
+			} else
 			{
 				// do nothing
 			}
-		}
-		else if (publisher instanceof HumiditySensor)
+		} else if (publisher instanceof HumiditySensor)
 		{
 			if (value <= 40)
 			{
-				Facade humidify = this.facades.get("humidify");
+				Facade humidify = this.facades.get("humidifying");
 				if (humidify != null)
 				{
 					humidify.doAction();
 				}
-			}
-			else if (value >= 60)
+			} else if (value >= 60)
 			{
-				Facade dry = this.facades.get("dry");
+				Facade dry = this.facades.get("drying");
 				if (dry != null)
 				{
 					dry.doAction();
 				}
-			}
-			else
+			} else
 			{
 				// do nothing
 			}
