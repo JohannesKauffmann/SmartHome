@@ -1,4 +1,7 @@
 import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import actuators.*;
@@ -11,35 +14,166 @@ public class Main
 {
 	// create new scanner for reading user input.
 	private static Scanner scanner = new Scanner(new InputStreamReader(System.in));
-	
+	private static Controller controller;
+
 	public static void main(String[] args)
 	{
 		// create new controller and call the initialize method.
-		Controller controller = new Controller();
+		controller = new Controller();
 		initialize(controller);
 
 		System.out.println("Controller ready! use -help for available commands.");
-		homeCommand();
+		homeScreen();
 
 	}
 
-	private static void homeCommand()
+	private static void homeScreen()
 	{
-		System.out.println("--HOME--");
-		
-		String input = scanner.nextLine();
-
-		switch (input)
+		while (true)
 		{
-		case "-help":
-			printHelpMessage();
+			System.out.println("--HOME--");
+
+			String input = scanner.nextLine();
+
+			switch (input)
+			{
+			case "-help":
+				printHelpMessage();
+				break;
+			case "-printActuators":
+				printActuators();
+				break;
+			case "-ActuatorScreen":
+				actuatorScreen();
+				break;
+			case "-printFacade":
+				printFacade();
+				break;
+			case "-FacadeScreen":
+				facadeScreen();
 			break;
 
-		default:
-			break;
+			default:
+				break;
+			}
 		}
-		
-		homeCommand();
+	}
+	
+	private static void facadeScreen() {
+		while(true) {
+			System.out.println("Select an facade by name. Press q for return");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				return;
+			}
+			for(Entry<String, Facade> entry : controller.getFacades().entrySet()) {
+				if (entry.getKey().equals(input))
+				{
+					entry.getValue().doAction();
+					System.out.println("Executed facade!");
+					break;
+				}
+			}
+		}
+	}
+	
+	private static void printFacade() {
+		System.out.println("Facades:");
+		for (String facadeName : controller.getFacades().keySet())
+		{
+			System.out.println(facadeName);
+		}
+	}
+
+	private static void actuatorScreen()
+	{
+		while (true)
+		{
+			System.out.println("Select an actuator by name. Press q for return");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				return;
+			}
+
+			for (ActuatorWrapper actuatorWrapper : controller.getActuators())
+			{
+				if (actuatorWrapper.getActuator().getName().equals(input))
+				{
+					System.out.println("Selected actuator: " + input);
+					while (true)
+					{
+						input = scanner.nextLine();
+						if (input.equals("q"))
+						{
+							break;
+						}
+						switch (input)
+						{
+						case "-help":
+							actuatorScreenHelp();
+							break;
+
+						case "-undo":
+							actuatorWrapper.undo();
+							System.out.println("Undoed selected actuator");
+							break;
+						case "-printCommands":
+							System.out.println("Commands:");
+							for (String commandName : actuatorWrapper.getCommands().keySet())
+							{
+								System.out.println(commandName);
+							}
+							break;
+						case "-executeCommand":
+							while (true)
+							{
+								System.out.println("Execute a command by name:");
+								input = scanner.nextLine();
+								if (input.equals("q"))
+								{
+									break;
+								}
+								for (Entry<String, Command> entry : actuatorWrapper.getCommands().entrySet())
+								{
+									if (entry.getKey().equals(input))
+									{
+										entry.getValue().execute();
+										System.out.println("Executed command");
+										break;
+									}
+
+								}
+								System.out.println("Command with given name not found: " + input);
+							}
+							break;
+
+						default:
+							break;
+						}
+					}
+				}
+				break;
+			}
+
+			System.out.println("Actuator not found!");
+		}
+
+	}
+
+	private static void actuatorScreenHelp()
+	{
+		System.out.println();
+	}
+
+	private static void printActuators()
+	{
+		System.out.println("Actuators:");
+		for (ActuatorWrapper actuatorWrapper : controller.getActuators())
+		{
+			System.out.println(actuatorWrapper.getActuator().getName());
+		}
 	}
 
 	private static void printHelpMessage()

@@ -33,6 +33,14 @@ public class ActuatorWrapper
 	{
 		this.commands.get(commandName).execute();
 	}
+	
+	public Actuator getActuator() {
+		return this.actuator;
+	}
+	
+	public HashMap<String, Command> getCommands(){
+		return this.commands;
+	}
 
 	public void undo()
 	{

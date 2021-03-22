@@ -20,6 +20,10 @@ public class Controller implements Subscriber
 		this.sensors = new ArrayList<>();
 		this.facades = new HashMap<>();
 	}
+	
+	public HashMap<String, Facade> getFacades(){
+		return this.facades;
+	}
 
 	public void addSensor(Sensor sensor)
 	{
@@ -43,6 +47,10 @@ public class Controller implements Subscriber
 		{
 			facade.doAction();
 		}
+	}
+	
+	public ArrayList<ActuatorWrapper> getActuators(){
+		return this.actuators;
 	}
 
 	@Override
