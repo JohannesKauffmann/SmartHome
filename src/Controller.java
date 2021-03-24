@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import actuators.ActuatorWrapper;
 import facades.Facade;
@@ -20,9 +21,35 @@ public class Controller implements Subscriber
 		this.sensors = new ArrayList<>();
 		this.facades = new HashMap<>();
 	}
+
+	public void printSensors()
+	{
+		System.out.println("Sensors: ");
+		for (Sensor sensor : this.sensors)
+		{
+			System.out.println(sensor.getName());
+		}
+	}
 	
-	public HashMap<String, Facade> getFacades(){
-		return this.facades;
+	public void printFacades()
+	{
+		System.out.println("Facades:");
+		for (String facadeName : this.facades.keySet())
+		{
+			System.out.println(facadeName);
+		}
+	}
+
+	public Facade getFacade(String FacadeName)
+	{
+		for (Entry<String, Facade> entry : this.facades.entrySet())
+		{
+			if (entry.getKey().equals(FacadeName))
+			{
+				return entry.getValue();
+			}
+		}
+		return null;
 	}
 
 	public void addSensor(Sensor sensor)
@@ -48,9 +75,26 @@ public class Controller implements Subscriber
 			facade.doAction();
 		}
 	}
-	
-	public ArrayList<ActuatorWrapper> getActuators(){
-		return this.actuators;
+
+	public ActuatorWrapper getActuator(String actuatorName)
+	{
+		for (ActuatorWrapper actuatorWrapper : this.actuators)
+		{
+			if (actuatorWrapper.getActuator().getName().equals(actuatorName))
+			{
+				return actuatorWrapper;
+			}
+		}
+		return null;
+	}
+
+	public void printActuators()
+	{
+		System.out.println("Actuators:");
+		for (ActuatorWrapper actuatorWrapper : this.actuators)
+		{
+			System.out.println(actuatorWrapper.getActuator().getName());
+		}
 	}
 
 	@Override

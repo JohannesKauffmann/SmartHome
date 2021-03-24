@@ -1,7 +1,4 @@
 import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 
 import actuators.*;
@@ -41,48 +38,43 @@ public class Main
 				printHelpMessage();
 				break;
 			case "-printActuators":
-				printActuators();
+				controller.printActuators();
 				break;
-			case "-ActuatorScreen":
+			case "-actuatorScreen":
 				actuatorScreen();
 				break;
-			case "-printFacade":
-				printFacade();
+			case "-printFacades":
+				controller.printFacades();
 				break;
-			case "-FacadeScreen":
-				facadeScreen();
-			break;
-
+			case "-executeFacade":
+				executeFacade();
+				break;
+			case "-printSensors":
+				controller.printSensors();
+				break;
 			default:
 				break;
 			}
 		}
 	}
-	
-	private static void facadeScreen() {
-		while(true) {
+
+	private static void executeFacade()
+	{
+		while (true)
+		{
 			System.out.println("Select an facade by name. Press q for return");
 			String input = scanner.nextLine();
 			if (input.equals("q"))
 			{
 				return;
 			}
-			for(Entry<String, Facade> entry : controller.getFacades().entrySet()) {
-				if (entry.getKey().equals(input))
-				{
-					entry.getValue().doAction();
-					System.out.println("Executed facade!");
-					break;
-				}
+			Facade facade = controller.getFacade(input);
+			if(facade != null) {
+				facade.doAction();
+				System.out.println("Executed Facade");
+			} else {
+				System.out.println("Facade not found!");
 			}
-		}
-	}
-	
-	private static void printFacade() {
-		System.out.println("Facades:");
-		for (String facadeName : controller.getFacades().keySet())
-		{
-			System.out.println(facadeName);
 		}
 	}
 
@@ -92,72 +84,81 @@ public class Main
 		{
 			System.out.println("Select an actuator by name. Press q for return");
 			String input = scanner.nextLine();
+			
 			if (input.equals("q"))
 			{
 				return;
 			}
 
-			for (ActuatorWrapper actuatorWrapper : controller.getActuators())
+			ActuatorWrapper actuatorWrapper = controller.getActuator(input);
+			if (actuatorWrapper != null)
 			{
-				if (actuatorWrapper.getActuator().getName().equals(input))
-				{
-					System.out.println("Selected actuator: " + input);
-					while (true)
-					{
-						input = scanner.nextLine();
-						if (input.equals("q"))
-						{
-							break;
-						}
-						switch (input)
-						{
-						case "-help":
-							actuatorScreenHelp();
-							break;
+				System.out.println("Selected actuator: " + input);
+				doActuatorAction(actuatorWrapper);
+			} else
+			{
+				System.out.println("Actuator not found!");
+			}
+		}
 
-						case "-undo":
-							actuatorWrapper.undo();
-							System.out.println("Undoed selected actuator");
-							break;
-						case "-printCommands":
-							System.out.println("Commands:");
-							for (String commandName : actuatorWrapper.getCommands().keySet())
-							{
-								System.out.println(commandName);
-							}
-							break;
-						case "-executeCommand":
-							while (true)
-							{
-								System.out.println("Execute a command by name:");
-								input = scanner.nextLine();
-								if (input.equals("q"))
-								{
-									break;
-								}
-								for (Entry<String, Command> entry : actuatorWrapper.getCommands().entrySet())
-								{
-									if (entry.getKey().equals(input))
-									{
-										entry.getValue().execute();
-										System.out.println("Executed command");
-										break;
-									}
+	}
 
-								}
-								System.out.println("Command with given name not found: " + input);
-							}
-							break;
-
-						default:
-							break;
-						}
-					}
-				}
+	private static void doActuatorAction(ActuatorWrapper actuatorWrapper)
+	{
+		while (true)
+		{
+			System.out.println("Do action on selected actuator: -help or press q to quit.");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
 				break;
 			}
+			switch (input)
+			{
+			case "-help":
+				actuatorScreenHelp();
+				break;
+			case "-undo":
+				if(actuatorWrapper.undo()) {
+					System.out.println("Undoed selected actuator");
+				} else {
+					System.out.println("No history yet for this actuator!");
+				}
+				break;
+			case "-printCommands":
+				System.out.println("Commands:");
+				actuatorWrapper.printCommands();
+				break;
+			case "-executeCommand":
+				executeCommand(actuatorWrapper);
+				break;
+			default:
+				break;
+			}
+		}
 
-			System.out.println("Actuator not found!");
+	}
+
+	private static void executeCommand(ActuatorWrapper actuatorWrapper)
+	{
+		while (true)
+		{
+			System.out.println("Execute a command by name.");
+			System.out.println("Type the name of the command to execute or press q to quit.");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				break;
+			}
+			Command command = actuatorWrapper.getCommand(input);
+			if (command != null)
+			{
+				command.execute();
+				System.out.println("Command executed!");
+			} else
+			{
+				System.out.println("Command with given name not found: " + input);
+			}
 		}
 
 	}
@@ -166,16 +167,6 @@ public class Main
 	{
 		System.out.println();
 	}
-
-	private static void printActuators()
-	{
-		System.out.println("Actuators:");
-		for (ActuatorWrapper actuatorWrapper : controller.getActuators())
-		{
-			System.out.println(actuatorWrapper.getActuator().getName());
-		}
-	}
-
 	private static void printHelpMessage()
 	{
 		System.out.println("Dit is de help message!");
@@ -192,14 +183,14 @@ public class Main
 		Phone phone = new Phone("phony phone");
 
 		// initialize sensors
-		Sensor tempSensor = new TemperatureSensor();
-		Sensor humSensor = new HumiditySensor();
+		Sensor tempSensor = new TemperatureSensor("Sensornator Great Temperature");
+		Sensor humSensor = new HumiditySensor("GDPR NON CompliAnt 9000 Hummy Sensor");
 
 		// add sensors
 		controller.addSensor(tempSensor);
 		controller.addSensor(humSensor);
 
-		// phony phone subscibes to temperature sensor.
+		// phony phone subscribes to temperature sensor.
 		tempSensor.subscribe(phone);
 
 		// controller subscribes to hum and temp sensors

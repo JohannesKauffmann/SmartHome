@@ -1,6 +1,7 @@
 package actuators;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Stack;
 
 import commands.Command;
@@ -23,6 +24,17 @@ public class ActuatorWrapper
 	{
 		this.commands.put(commandName, command);
 	}
+	
+	public Command getCommand(String commandName) {
+		for (Entry<String, Command> entry : this.commands.entrySet())
+		{
+			if (entry.getKey().equals(commandName))
+			{
+				return entry.getValue();
+			}
+		}
+		return null;
+	}
 
 	public void deleteCommand(String commandName)
 	{
@@ -38,16 +50,24 @@ public class ActuatorWrapper
 		return this.actuator;
 	}
 	
-	public HashMap<String, Command> getCommands(){
-		return this.commands;
-	}
-
-	public void undo()
-	{
-		Memento lastState = this.history.pop();
-		if (lastState != null)
-		{
-			lastState.restore();
+	public void printCommands() {
+		for(String commandName : this.commands.keySet()) {
+			System.out.println("Command: " + commandName);
 		}
+	}
+	
+	public boolean undo()
+	{
+		if(!this.history.empty()) {
+			Memento lastState = this.history.pop();
+			if (lastState != null)
+			{
+				lastState.restore();
+			}
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 }
