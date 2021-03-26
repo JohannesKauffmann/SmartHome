@@ -2,11 +2,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import actuators.ActuatorWrapper;
+import actuators.*;
 import facades.Facade;
-import sensors.HumiditySensor;
-import sensors.Sensor;
-import sensors.TemperatureSensor;
+import sensors.*;
 import subscribers.Subscriber;
 
 public class Controller implements Subscriber
@@ -105,7 +103,7 @@ public class Controller implements Subscriber
 		System.out.println("Actuators:");
 		for (ActuatorWrapper actuatorWrapper : this.actuators)
 		{
-			System.out.println(actuatorWrapper.getActuator().getName());
+			System.out.println(actuatorWrapper.getActuator());
 		}
 	}
 

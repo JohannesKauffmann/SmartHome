@@ -80,4 +80,9 @@ public class Airco extends Actuator
 	{
 		return new AircoMemento(this, this.modus);
 	}
+	
+	@Override
+	public String toString() {
+		return "Type: Airco, Name: " + this.name;
+	}
 }
