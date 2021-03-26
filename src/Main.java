@@ -64,38 +64,46 @@ public class Main
 	{
 		while (true)
 		{
-			System.out.println("Select a facade by name. Press q for return");
+			System.out.println("Select a facade by name. Press q to return");
 			String input = scanner.nextLine();
 			if (input.equals("q"))
 			{
 				return;
 			}
 			Facade facade = controller.getFacade(input);
-			if(facade != null) {
+			if (facade != null)
+			{
 				facade.doAction();
 				System.out.println("Executed Facade");
-			} else {
-				System.out.println("Facade not found!");
+			}
+			else
+			{
+				System.err.println("Facade '" + input.toString() + "' not found.");
 			}
 		}
 	}
-	
+
 	private static void doMeasurement()
 	{
 		while (true)
 		{
-			System.out.println("Select a sensor by name. Press q for return");
+			System.out.println("Select a sensor by name. Press q to return.");
+			
 			String input = scanner.nextLine();
 			if (input.equals("q"))
 			{
 				return;
 			}
 			Sensor sensor = controller.getSensor(input);
-			if(sensor != null) {
+			if (sensor != null)
+			{
+				System.out.println("Measuring:\n");
 				sensor.doMeasurement();
-				System.out.println("sensor measured!");
-			} else {
-				System.out.println("sensor not found!");
+				System.out.println("\nsensor measured! \n");
+			}
+			else
+			{
+				System.err.println("Sensor '" + input.toString() + "' not found.");
 			}
 		}
 	}
@@ -104,9 +112,9 @@ public class Main
 	{
 		while (true)
 		{
-			System.out.println("Select an actuator by name. Press q for return");
+			System.out.println("Select an actuator by name. Press q to return");
 			String input = scanner.nextLine();
-			
+
 			if (input.equals("q"))
 			{
 				return;
@@ -117,9 +125,10 @@ public class Main
 			{
 				System.out.println("Selected actuator: " + input);
 				doActuatorAction(actuatorWrapper);
-			} else
+			}
+			else
 			{
-				System.out.println("Actuator not found!");
+				System.err.println("Actuator '" + input.toString() + "' not found.");
 			}
 		}
 
@@ -129,7 +138,8 @@ public class Main
 	{
 		while (true)
 		{
-			System.out.println("Do action on selected actuator: -help or press q to quit.");
+			System.out.println(
+					"Do an action on selected actuator by executing a command. Use -help to view the available commands or press q to quit.");
 			String input = scanner.nextLine();
 			if (input.equals("q"))
 			{
@@ -141,10 +151,13 @@ public class Main
 				actuatorScreenHelp();
 				break;
 			case "-undo":
-				if(actuatorWrapper.undo()) {
+				if (actuatorWrapper.undo())
+				{
 					System.out.println("Undoed selected actuator");
-				} else {
-					System.out.println("No history yet for this actuator!");
+				}
+				else
+				{
+					System.err.println("This actuator doesn't have a history yet.");
 				}
 				break;
 			case "-printCommands":
@@ -158,7 +171,6 @@ public class Main
 				break;
 			}
 		}
-
 	}
 
 	private static void executeCommand(ActuatorWrapper actuatorWrapper)
@@ -177,9 +189,10 @@ public class Main
 			{
 				command.execute();
 				System.out.println("Command executed!");
-			} else
+			}
+			else
 			{
-				System.out.println("Command with given name not found: " + input);
+				System.err.println("Command with name '" + input.toString() + "' not found.");
 			}
 		}
 
@@ -189,6 +202,7 @@ public class Main
 	{
 		System.out.println();
 	}
+
 	private static void printHelpMessage()
 	{
 		System.out.println("Dit is de help message!");
@@ -257,8 +271,8 @@ public class Main
 
 		// create and add facades.
 		Facade heatingFacade = new HeatingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
-		Facade coolingFacade = new CoolingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
-		Facade dryingFacade = new DryingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
+		Facade coolingFacade = new CoolingFacade(heaterWrapper, fanWrapper, aircoWrapper);
+		Facade dryingFacade = new DryingFacade(heaterWrapper, fanWrapper, aircoWrapper);
 		Facade humidfyFacade = new HumidifyFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
 
 		controller.addFacade("heating", heatingFacade);

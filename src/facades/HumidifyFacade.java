@@ -35,17 +35,22 @@ public class HumidifyFacade implements Facade
 			if (actuator instanceof Fan)
 			{
 				((Fan) actuator).setRpmLevel(10);
-			} else if (actuator instanceof Airco)
+			}
+			else if (actuator instanceof Airco)
 			{
 				((Airco) actuator).setModus(AircoModus.COOL);
-			} else if (actuator instanceof Heater)
+			}
+			else if (actuator instanceof Heater)
 			{
 				((Heater) actuator).setModus(HeaterModus.POLAR);
-			} else if (actuator instanceof Sprinkler)
+			}
+			else if (actuator instanceof Sprinkler)
 			{
 				((Sprinkler) actuator).setSprinklerState(true);
-			} else
+			}
+			else
 			{
+				System.err.println("Invalid actuator!");
 				continue;
 			}
 			actuator.doOperation();

@@ -7,7 +7,7 @@ import subscribers.Subscriber;
 public class HumiditySensor extends Sensor
 {
 	private int humidity;
-	
+
 	public HumiditySensor(String name)
 	{
 		super();

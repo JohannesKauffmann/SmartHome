@@ -7,7 +7,7 @@ import subscribers.Subscriber;
 public class TemperatureSensor extends Sensor
 {
 	private int temperature;
-	
+
 	public TemperatureSensor(String name)
 	{
 		super();

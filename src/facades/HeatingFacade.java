@@ -35,17 +35,22 @@ public class HeatingFacade implements Facade
 			if (actuator instanceof Fan)
 			{
 				((Fan) actuator).setRpmLevel(0);
-			} else if (actuator instanceof Airco)
+			}
+			else if (actuator instanceof Airco)
 			{
 				((Airco) actuator).setModus(AircoModus.HEAT);
-			} else if (actuator instanceof Heater)
+			}
+			else if (actuator instanceof Heater)
 			{
 				((Heater) actuator).setModus(HeaterModus.CREMATORIUM);
-			} else if (actuator instanceof Sprinkler)
+			}
+			else if (actuator instanceof Sprinkler)
 			{
 				((Sprinkler) actuator).setSprinklerState(false);
-			} else
+			}
+			else
 			{
+				System.err.println("Invalid actuator!");
 				continue;
 			}
 			actuator.doOperation();
