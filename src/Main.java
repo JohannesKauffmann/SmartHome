@@ -210,6 +210,8 @@ public class Main
 
 		System.out.format("%1$-15s  =>  %2$-40s", "-help", "Prints this message.");
 		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-undo", "Revert this actuator to its previous state.");
+		System.out.println();
 		System.out.format("%1$-15s  =>  %2$-40s", "-printCommands", "Prints a list of commands which can be executed on this actuator.");
 		System.out.println();
 		System.out.format("%1$-15s  =>  %2$-40s", "-executeCommand", "Pick a command and excute it.");
