@@ -126,7 +126,6 @@ public class Main
 			{
 				System.out.println("Measuring:\n");
 				sensor.doMeasurement();
-				System.out.println("\nsensor measured! \n");
 			}
 			else
 			{
@@ -233,6 +232,7 @@ public class Main
 			Command command = actuatorWrapper.getCommand(input);
 			if (command != null)
 			{
+				actuatorWrapper.saveState();
 				command.execute();
 				System.out.println("Command executed!");
 			}

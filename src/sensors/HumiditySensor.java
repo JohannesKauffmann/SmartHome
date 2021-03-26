@@ -29,6 +29,7 @@ public class HumiditySensor extends Sensor
 		// TODO: measure interval with timer.
 		Random random = new Random();
 		this.humidity = random.nextInt(100);
+		System.out.println("HumiditySensor: " + this.name +  " measured the following value: " + this.humidity);
 		// notify subscribers with new value.
 		this.notifySubscribers();
 	}

@@ -35,7 +35,7 @@ public class Phone implements Device, Subscriber
 	public void displayValue(Sensor publisher)
 	{
 		System.out.println("Phone: " + this.name + " got a new value of it's publisher: " + publisher.toString()
-				+ "value: " + this.subcriberValue);
+				+ ", value: " + this.subcriberValue);
 	}
 
 }

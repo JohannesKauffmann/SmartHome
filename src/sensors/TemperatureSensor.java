@@ -29,6 +29,7 @@ public class TemperatureSensor extends Sensor
 		// TODO: measure interval with timer.
 		Random random = new Random();
 		this.temperature = random.nextInt(40);
+		System.out.println("TemperatureSensor: " + this.name +  " measured the following value: " + this.temperature);
 		// notify all subscriber of new value.
 		this.notifySubscribers();
 	}

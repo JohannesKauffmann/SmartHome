@@ -112,49 +112,53 @@ public class Controller implements Subscriber
 	{
 		if (publisher instanceof TemperatureSensor)
 		{
+			Facade facade = null;
+			
 			if (value <= 20)
 			{
-				Facade heating = this.facades.get("heating");
-				if (heating != null)
-				{
-					heating.doAction();
-				}
+				facade = this.facades.get("heating");
 			}
 			else if (value >= 25)
 			{
-				Facade cooling = this.facades.get("cooling");
-				if (cooling != null)
-				{
-					cooling.doAction();
-				}
+				facade = this.facades.get("cooling");
 			}
 			else
 			{
 				// do nothing
+			}
+			if(facade != null) {
+				System.out.println();
+				System.out.println("Because of new temperature update: executing the " + facade);
+				facade.doAction();
+				System.out.println("Executed all actions that followed because of an updated temperature!");
+				System.out.println();
 			}
 		}
 		else if (publisher instanceof HumiditySensor)
 		{
+			Facade facade = null;
+			
 			if (value <= 40)
 			{
-				Facade humidify = this.facades.get("humidifying");
-				if (humidify != null)
-				{
-					humidify.doAction();
-				}
+				facade = this.facades.get("humidifying");
 			}
 			else if (value >= 60)
 			{
-				Facade dry = this.facades.get("drying");
-				if (dry != null)
-				{
-					dry.doAction();
-				}
+				facade = facades.get("drying");
 			}
 			else
 			{
 				// do nothing
 			}
+			
+			if(facade != null) {
+				System.out.println();
+				System.out.println("Because of new humidity update: executing the " + facade);
+				facade.doAction();
+				System.out.println("Executed all actions that followed because of an updated humidity!");
+				System.out.println();
+			}
+			
 		}
 	}
 }

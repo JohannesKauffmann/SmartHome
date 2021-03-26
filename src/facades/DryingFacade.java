@@ -52,5 +52,10 @@ public class DryingFacade implements Facade
 		}
 
 	}
+	
+	@Override
+	public String toString() {
+		return "drying facade";
+	}
 
 }

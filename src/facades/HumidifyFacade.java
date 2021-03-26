@@ -57,5 +57,10 @@ public class HumidifyFacade implements Facade
 		}
 
 	}
+	
+	@Override
+	public String toString() {
+		return "humidify facade";
+	}
 
 }
