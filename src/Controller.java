@@ -119,18 +119,21 @@ public class Controller implements Subscriber
 				{
 					heating.doAction();
 				}
-			} else if (value >= 25)
+			}
+			else if (value >= 25)
 			{
 				Facade cooling = this.facades.get("cooling");
 				if (cooling != null)
 				{
 					cooling.doAction();
 				}
-			} else
+			}
+			else
 			{
 				// do nothing
 			}
-		} else if (publisher instanceof HumiditySensor)
+		}
+		else if (publisher instanceof HumiditySensor)
 		{
 			if (value <= 40)
 			{
@@ -139,14 +142,16 @@ public class Controller implements Subscriber
 				{
 					humidify.doAction();
 				}
-			} else if (value >= 60)
+			}
+			else if (value >= 60)
 			{
 				Facade dry = this.facades.get("drying");
 				if (dry != null)
 				{
 					dry.doAction();
 				}
-			} else
+			}
+			else
 			{
 				// do nothing
 			}

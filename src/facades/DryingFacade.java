@@ -39,16 +39,18 @@ public class DryingFacade implements Facade
 			{
 				((Heater) actuator).setModus(HeaterModus.CREMATORIUM);
 			}
-			else if(actuator instanceof Airco){
+			else if (actuator instanceof Airco)
+			{
 				((Airco) actuator).setModus(AircoModus.DRY);
 			}
 			else
 			{
+				System.err.println("Invalid actuator!");
 				continue;
 			}
 			actuator.doOperation();
 		}
-		
+
 	}
 
 }

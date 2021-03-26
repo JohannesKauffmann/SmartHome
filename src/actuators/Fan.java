@@ -6,7 +6,7 @@ import mementos.Memento;
 public class Fan extends Actuator
 {
 	private int rpmLevel;
-	
+
 	public Fan(String name)
 	{
 		this.name = name;

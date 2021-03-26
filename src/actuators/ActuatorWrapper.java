@@ -73,8 +73,10 @@ public class ActuatorWrapper
 				lastState.restore();
 			}
 			return true;
-		} else
+		}
+		else
 		{
+			System.err.println("No changes to undo!");
 			return false;
 		}
 	}
