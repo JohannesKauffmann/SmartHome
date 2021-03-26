@@ -60,6 +60,33 @@ public class Main
 		}
 	}
 
+	/*
+	 * Prints the help message for the home screen. It lists all available commands.
+	 */
+	private static void printHelpMessage()
+	{
+		System.out.println("\nWelcome to your SmartHome!\n");
+
+		System.out.println("The following commands are available to use:");
+
+		System.out.format("%1$-15s  =>  %2$-40s", "-help", "Prints this message.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printActuators", "Prints a list of available actuators.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-actuatorScreen", "Pick an actuator and perform an action.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printFacades", "Prints a list of available facades.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-executeFacade", "Pick and execute a facade.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printSensors", "Prints a list of available sensors.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-doMeasurement", "Pick a sensor and force it to measure for a single interval.");
+		System.out.println();
+
+		System.out.println("\nReturning to home screen...\n");
+	}
+
 	private static void executeFacade()
 	{
 		while (true)
@@ -161,6 +188,25 @@ public class Main
 
 	}
 
+	/*
+	 * Prints help message for the actuator screen.
+	 */
+	private static void actuatorScreenHelp()
+	{
+		System.out.println("\nActuator screen help!\n");
+
+		System.out.println("The following commands can be used in the actuator screen:");
+
+		System.out.format("%1$-15s  =>  %2$-40s", "-help", "Prints this message.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printCommands", "Prints a list of commands which can be executed on this actuator.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-executeCommand", "Pick a command and excute it.");
+		System.out.println();
+
+		System.out.println("\nReturning to actuator screen...\n");
+	}
+
 	private static void executeCommand(ActuatorWrapper actuatorWrapper)
 	{
 		while (true)
@@ -183,16 +229,6 @@ public class Main
 			}
 		}
 
-	}
-
-	private static void actuatorScreenHelp()
-	{
-		System.out.println();
-	}
-	private static void printHelpMessage()
-	{
-		System.out.println("Dit is de help message!");
-		System.out.println("Select");
 	}
 
 	/*
