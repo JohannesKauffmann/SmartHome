@@ -46,4 +46,9 @@ public class Heater extends Actuator
 	{
 		return new HeaterMemento(this, this.modus);
 	}
+	
+	@Override
+	public String toString() {
+		return "Type: Heater, Name: " + this.name;
+	}
 }
