@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import actuators.Actuator;
+import actuators.ActuatorWrapper;
 import actuators.Airco;
 import actuators.AircoModus;
 import actuators.Fan;
@@ -12,18 +13,26 @@ import actuators.HeaterModus;
 
 public class CoolingFacade implements Facade
 {
-	private ArrayList<Actuator> coolingDevices;
+	private ArrayList<ActuatorWrapper> coolingDevices;
 
-	public CoolingFacade(Actuator... actuators)
+	public CoolingFacade(ActuatorWrapper... actuators)
 	{
-		this.coolingDevices = new ArrayList<Actuator>(Arrays.asList(actuators));
+		this.coolingDevices = new ArrayList<ActuatorWrapper>(Arrays.asList(actuators));
 	}
 
 	@Override
 	public void doAction()
 	{
-		for (Actuator actuator : this.coolingDevices)
+
+		for (ActuatorWrapper actuatorWrapper : this.coolingDevices)
 		{
+			Actuator actuator = actuatorWrapper.getActuator();
+			// if an actuator is not supported/used by this facade, the state will still be
+			// saved.
+			// We are aware of this limitation of the current implementation of the memento
+			// design pattern.
+			actuatorWrapper.saveState();
+
 			if (actuator instanceof Fan)
 			{
 				((Fan) actuator).setRpmLevel(100);

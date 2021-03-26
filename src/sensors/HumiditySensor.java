@@ -8,9 +8,10 @@ public class HumiditySensor extends Sensor
 {
 	private int humidity;
 	
-	public HumiditySensor()
+	public HumiditySensor(String name)
 	{
 		super();
+		this.name = name;
 	}
 
 	@Override

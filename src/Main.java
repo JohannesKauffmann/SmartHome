@@ -11,41 +11,224 @@ public class Main
 {
 	// create new scanner for reading user input.
 	private static Scanner scanner = new Scanner(new InputStreamReader(System.in));
-	
+	private static Controller controller;
+
 	public static void main(String[] args)
 	{
 		// create new controller and call the initialize method.
-		Controller controller = new Controller();
+		controller = new Controller();
 		initialize(controller);
 
 		System.out.println("Controller ready! use -help for available commands.");
-		homeCommand();
+		homeScreen();
 
 	}
 
-	private static void homeCommand()
+	private static void homeScreen()
 	{
-		System.out.println("--HOME--");
-		
-		String input = scanner.nextLine();
-
-		switch (input)
+		while (true)
 		{
-		case "-help":
-			printHelpMessage();
-			break;
+			System.out.println("--HOME--");
 
-		default:
-			break;
+			String input = scanner.nextLine();
+
+			switch (input)
+			{
+			case "-help":
+				printHelpMessage();
+				break;
+			case "-printActuators":
+				controller.printActuators();
+				break;
+			case "-actuatorScreen":
+				actuatorScreen();
+				break;
+			case "-printFacades":
+				controller.printFacades();
+				break;
+			case "-executeFacade":
+				executeFacade();
+				break;
+			case "-printSensors":
+				controller.printSensors();
+				break;
+			case "-doMeasurement":
+				doMeasurement();
+			default:
+				break;
+			}
 		}
-		
-		homeCommand();
 	}
 
+	/*
+	 * Prints the help message for the home screen. It lists all available commands.
+	 */
 	private static void printHelpMessage()
 	{
-		System.out.println("Dit is de help message!");
-		System.out.println("Select");
+		System.out.println("\nWelcome to your SmartHome!\n");
+
+		System.out.println("The following commands are available to use:");
+
+		System.out.format("%1$-15s  =>  %2$-40s", "-help", "Prints this message.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printActuators", "Prints a list of available actuators.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-actuatorScreen", "Pick an actuator and perform an action.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printFacades", "Prints a list of available facades.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-executeFacade", "Pick and execute a facade.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printSensors", "Prints a list of available sensors.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-doMeasurement", "Pick a sensor and force it to measure for a single interval.");
+		System.out.println();
+
+		System.out.println("\nReturning to home screen...\n");
+	}
+
+	private static void executeFacade()
+	{
+		while (true)
+		{
+			System.out.println("Select a facade by name. Press q for return");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				return;
+			}
+			Facade facade = controller.getFacade(input);
+			if(facade != null) {
+				facade.doAction();
+				System.out.println("Executed Facade");
+			} else {
+				System.out.println("Facade not found!");
+			}
+		}
+	}
+	
+	private static void doMeasurement()
+	{
+		while (true)
+		{
+			System.out.println("Select a sensor by name. Press q for return");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				return;
+			}
+			Sensor sensor = controller.getSensor(input);
+			if(sensor != null) {
+				sensor.doMeasurement();
+				System.out.println("sensor measured!");
+			} else {
+				System.out.println("sensor not found!");
+			}
+		}
+	}
+
+	private static void actuatorScreen()
+	{
+		while (true)
+		{
+			System.out.println("Select an actuator by name. Press q for return");
+			String input = scanner.nextLine();
+			
+			if (input.equals("q"))
+			{
+				return;
+			}
+
+			ActuatorWrapper actuatorWrapper = controller.getActuator(input);
+			if (actuatorWrapper != null)
+			{
+				System.out.println("Selected actuator: " + input);
+				doActuatorAction(actuatorWrapper);
+			} else
+			{
+				System.out.println("Actuator not found!");
+			}
+		}
+
+	}
+
+	private static void doActuatorAction(ActuatorWrapper actuatorWrapper)
+	{
+		while (true)
+		{
+			System.out.println("Do action on selected actuator: -help or press q to quit.");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				break;
+			}
+			switch (input)
+			{
+			case "-help":
+				actuatorScreenHelp();
+				break;
+			case "-undo":
+				if(actuatorWrapper.undo()) {
+					System.out.println("Undoed selected actuator");
+				} else {
+					System.out.println("No history yet for this actuator!");
+				}
+				break;
+			case "-printCommands":
+				System.out.println("Commands:");
+				actuatorWrapper.printCommands();
+				break;
+			case "-executeCommand":
+				executeCommand(actuatorWrapper);
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
+	/*
+	 * Prints help message for the actuator screen.
+	 */
+	private static void actuatorScreenHelp()
+	{
+		System.out.println("\nActuator screen help!\n");
+
+		System.out.println("The following commands can be used in the actuator screen:");
+
+		System.out.format("%1$-15s  =>  %2$-40s", "-help", "Prints this message.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-printCommands", "Prints a list of commands which can be executed on this actuator.");
+		System.out.println();
+		System.out.format("%1$-15s  =>  %2$-40s", "-executeCommand", "Pick a command and excute it.");
+		System.out.println();
+
+		System.out.println("\nReturning to actuator screen...\n");
+	}
+
+	private static void executeCommand(ActuatorWrapper actuatorWrapper)
+	{
+		while (true)
+		{
+			System.out.println("Execute a command by name.");
+			System.out.println("Type the name of the command to execute or press q to quit.");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				break;
+			}
+			Command command = actuatorWrapper.getCommand(input);
+			if (command != null)
+			{
+				command.execute();
+				System.out.println("Command executed!");
+			} else
+			{
+				System.out.println("Command with given name not found: " + input);
+			}
+		}
+
 	}
 
 	/*
@@ -58,14 +241,14 @@ public class Main
 		Phone phone = new Phone("phony phone");
 
 		// initialize sensors
-		Sensor tempSensor = new TemperatureSensor();
-		Sensor humSensor = new HumiditySensor();
+		Sensor tempSensor = new TemperatureSensor("Sensornator Great Temperature");
+		Sensor humSensor = new HumiditySensor("GDPR NON CompliAnt 9000 Hummy Sensor");
 
 		// add sensors
 		controller.addSensor(tempSensor);
 		controller.addSensor(humSensor);
 
-		// phony phone subscibes to temperature sensor.
+		// phony phone subscribes to temperature sensor.
 		tempSensor.subscribe(phone);
 
 		// controller subscribes to hum and temp sensors
@@ -109,10 +292,10 @@ public class Main
 		controller.addActuator(sprinklerWrapper);
 
 		// create and add facades.
-		Facade heatingFacade = new HeatingFacade(heater, fan, airco, sprinkler);
-		Facade coolingFacade = new CoolingFacade(heater, fan, airco, sprinkler);
-		Facade dryingFacade = new DryingFacade(heater, fan, airco, sprinkler);
-		Facade humidfyFacade = new HumidifyFacade(heater, fan, airco, sprinkler);
+		Facade heatingFacade = new HeatingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
+		Facade coolingFacade = new CoolingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
+		Facade dryingFacade = new DryingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
+		Facade humidfyFacade = new HumidifyFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
 
 		controller.addFacade("heating", heatingFacade);
 		controller.addFacade("cooling", coolingFacade);

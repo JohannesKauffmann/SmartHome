@@ -8,9 +8,10 @@ public class TemperatureSensor extends Sensor
 {
 	private int temperature;
 	
-	public TemperatureSensor()
+	public TemperatureSensor(String name)
 	{
 		super();
+		this.name = name;
 	}
 
 	@Override

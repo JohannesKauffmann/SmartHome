@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
-import actuators.ActuatorWrapper;
+import actuators.*;
 import facades.Facade;
-import sensors.HumiditySensor;
-import sensors.Sensor;
-import sensors.TemperatureSensor;
+import sensors.*;
 import subscribers.Subscriber;
 
 public class Controller implements Subscriber
@@ -19,6 +18,48 @@ public class Controller implements Subscriber
 		this.actuators = new ArrayList<>();
 		this.sensors = new ArrayList<>();
 		this.facades = new HashMap<>();
+	}
+
+	public void printSensors()
+	{
+		System.out.println("Sensors: ");
+		for (Sensor sensor : this.sensors)
+		{
+			System.out.println(sensor.getName());
+		}
+	}
+
+	public void printFacades()
+	{
+		System.out.println("Facades:");
+		for (String facadeName : this.facades.keySet())
+		{
+			System.out.println(facadeName);
+		}
+	}
+
+	public Facade getFacade(String FacadeName)
+	{
+		for (Entry<String, Facade> entry : this.facades.entrySet())
+		{
+			if (entry.getKey().equals(FacadeName))
+			{
+				return entry.getValue();
+			}
+		}
+		return null;
+	}
+
+	public Sensor getSensor(String sensorName)
+	{
+		for (Sensor sensor : this.sensors)
+		{
+			if (sensor.getName().equals(sensorName))
+			{
+				return sensor;
+			}
+		}
+		return null;
 	}
 
 	public void addSensor(Sensor sensor)
@@ -42,6 +83,27 @@ public class Controller implements Subscriber
 		if (facade != null)
 		{
 			facade.doAction();
+		}
+	}
+
+	public ActuatorWrapper getActuator(String actuatorName)
+	{
+		for (ActuatorWrapper actuatorWrapper : this.actuators)
+		{
+			if (actuatorWrapper.getActuator().getName().equals(actuatorName))
+			{
+				return actuatorWrapper;
+			}
+		}
+		return null;
+	}
+
+	public void printActuators()
+	{
+		System.out.println("Actuators:");
+		for (ActuatorWrapper actuatorWrapper : this.actuators)
+		{
+			System.out.println(actuatorWrapper.getActuator());
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import actuators.Actuator;
+import actuators.ActuatorWrapper;
 import actuators.Airco;
 import actuators.AircoModus;
 import actuators.Fan;
@@ -12,18 +13,24 @@ import actuators.HeaterModus;
 
 public class DryingFacade implements Facade
 {
-	private ArrayList<Actuator> dryingDevices;
+	private ArrayList<ActuatorWrapper> dryingDevices;
 
-	public DryingFacade(Actuator... actuators)
+	public DryingFacade(ActuatorWrapper... actuators)
 	{
-		this.dryingDevices = new ArrayList<Actuator>(Arrays.asList(actuators));
+		this.dryingDevices = new ArrayList<ActuatorWrapper>(Arrays.asList(actuators));
 	}
 
 	@Override
 	public void doAction()
 	{
-		for (Actuator actuator : this.dryingDevices)
+		for (ActuatorWrapper actuatorWrapper : this.dryingDevices)
 		{
+			Actuator actuator = actuatorWrapper.getActuator();
+			// if an actuator is not supported/used by this facade, the state will still be
+			// saved.
+			// We are aware of this limitation of the current implementation of the memento
+			// design pattern.
+			actuatorWrapper.saveState();
 			if (actuator instanceof Fan)
 			{
 				((Fan) actuator).setRpmLevel(100);
