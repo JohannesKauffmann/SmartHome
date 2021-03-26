@@ -59,9 +59,10 @@ public class Fan extends Actuator
 	{
 		return new FanMemento(this, this.rpmLevel);
 	}
-	
+
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Type: Fan, Name: " + this.name;
 	}
 }

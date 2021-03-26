@@ -53,9 +53,10 @@ public class CoolingFacade implements Facade
 			actuator.doOperation();
 		}
 	}
-	
+
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "cooling facade";
 	}
 }

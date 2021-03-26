@@ -5,7 +5,7 @@ import actuators.Sprinkler;
 public class SprinklerOffCommand implements Command
 {
 	private Sprinkler receiver;
-	
+
 	public SprinklerOffCommand(Sprinkler sprinkler)
 	{
 		this.receiver = sprinkler;

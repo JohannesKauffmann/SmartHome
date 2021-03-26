@@ -61,9 +61,10 @@ public class Sprinkler extends Actuator
 	{
 		return new SprinklerMemento(this, this.isSprinkling);
 	}
-	
+
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Type: Sprinkler, Name: " + this.name;
 	}
 }

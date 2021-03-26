@@ -5,7 +5,7 @@ import actuators.Fan;
 public class FanDecrementRpmCommand implements Command
 {
 	private Fan receiver;
-	
+
 	public FanDecrementRpmCommand(Fan fan)
 	{
 		this.receiver = fan;

@@ -11,7 +11,7 @@ public class SwitchHeaterModeCommand implements Command
 	{
 		this.receiver = heater;
 	}
-	
+
 	@Override
 	public void execute()
 	{

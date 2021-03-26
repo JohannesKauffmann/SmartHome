@@ -81,7 +81,8 @@ public class Main
 		System.out.println();
 		System.out.format("%1$-15s  =>  %2$-40s", "-printSensors", "Prints a list of available sensors.");
 		System.out.println();
-		System.out.format("%1$-15s  =>  %2$-40s", "-doMeasurement", "Pick a sensor and force it to measure for a single interval.");
+		System.out.format("%1$-15s  =>  %2$-40s", "-doMeasurement",
+				"Pick a sensor and force it to measure for a single interval.");
 		System.out.println();
 
 		System.out.println("\nReturning to home screen...\n");
@@ -115,7 +116,7 @@ public class Main
 		while (true)
 		{
 			System.out.println("Select a sensor by name. Press q to return.");
-			
+
 			String input = scanner.nextLine();
 			if (input.equals("q"))
 			{
@@ -245,7 +246,7 @@ public class Main
 		}
 
 	}
-  
+
 	/*
 	 * Method for initializing the sensors, facades, commands, actuators, etc.
 	 */

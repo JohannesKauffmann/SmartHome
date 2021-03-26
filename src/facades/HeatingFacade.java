@@ -57,9 +57,10 @@ public class HeatingFacade implements Facade
 		}
 
 	}
-	
+
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "heating facade";
 	}
 
