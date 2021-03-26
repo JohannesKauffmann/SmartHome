@@ -103,7 +103,7 @@ public class Controller implements Subscriber
 		System.out.println("Actuators:");
 		for (ActuatorWrapper actuatorWrapper : this.actuators)
 		{
-			System.out.println(actuatorWrapper.getActuator().toString());
+			System.out.println(actuatorWrapper.getActuator());
 		}
 	}
 
