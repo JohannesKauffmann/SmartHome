@@ -52,6 +52,8 @@ public class Main
 			case "-printSensors":
 				controller.printSensors();
 				break;
+			case "-doMeasurement":
+				doMeasurement();
 			default:
 				break;
 			}
@@ -62,7 +64,7 @@ public class Main
 	{
 		while (true)
 		{
-			System.out.println("Select an facade by name. Press q for return");
+			System.out.println("Select a facade by name. Press q for return");
 			String input = scanner.nextLine();
 			if (input.equals("q"))
 			{
@@ -74,6 +76,26 @@ public class Main
 				System.out.println("Executed Facade");
 			} else {
 				System.out.println("Facade not found!");
+			}
+		}
+	}
+	
+	private static void doMeasurement()
+	{
+		while (true)
+		{
+			System.out.println("Select a sensor by name. Press q for return");
+			String input = scanner.nextLine();
+			if (input.equals("q"))
+			{
+				return;
+			}
+			Sensor sensor = controller.getSensor(input);
+			if(sensor != null) {
+				sensor.doMeasurement();
+				System.out.println("sensor measured!");
+			} else {
+				System.out.println("sensor not found!");
 			}
 		}
 	}
@@ -234,10 +256,10 @@ public class Main
 		controller.addActuator(sprinklerWrapper);
 
 		// create and add facades.
-		Facade heatingFacade = new HeatingFacade(heater, fan, airco, sprinkler);
-		Facade coolingFacade = new CoolingFacade(heater, fan, airco, sprinkler);
-		Facade dryingFacade = new DryingFacade(heater, fan, airco, sprinkler);
-		Facade humidfyFacade = new HumidifyFacade(heater, fan, airco, sprinkler);
+		Facade heatingFacade = new HeatingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
+		Facade coolingFacade = new CoolingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
+		Facade dryingFacade = new DryingFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
+		Facade humidfyFacade = new HumidifyFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
 
 		controller.addFacade("heating", heatingFacade);
 		controller.addFacade("cooling", coolingFacade);

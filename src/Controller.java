@@ -51,6 +51,18 @@ public class Controller implements Subscriber
 		}
 		return null;
 	}
+	
+	public Sensor getSensor(String sensorName)
+	{
+		for (Sensor sensor : this.sensors)
+		{
+			if (sensor.getName().equals(sensorName))
+			{
+				return sensor;
+			}
+		}
+		return null;
+	}
 
 	public void addSensor(Sensor sensor)
 	{

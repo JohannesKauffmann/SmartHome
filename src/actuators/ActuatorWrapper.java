@@ -24,8 +24,9 @@ public class ActuatorWrapper
 	{
 		this.commands.put(commandName, command);
 	}
-	
-	public Command getCommand(String commandName) {
+
+	public Command getCommand(String commandName)
+	{
 		for (Entry<String, Command> entry : this.commands.entrySet())
 		{
 			if (entry.getKey().equals(commandName))
@@ -43,31 +44,44 @@ public class ActuatorWrapper
 
 	public void executeCommand(String commandName)
 	{
+		// save the state of the actuator before executing the command.
+		saveState();
+
 		this.commands.get(commandName).execute();
 	}
-	
-	public Actuator getActuator() {
+
+	public Actuator getActuator()
+	{
 		return this.actuator;
 	}
-	
-	public void printCommands() {
-		for(String commandName : this.commands.keySet()) {
+
+	public void printCommands()
+	{
+		for (String commandName : this.commands.keySet())
+		{
 			System.out.println("Command: " + commandName);
 		}
 	}
-	
+
 	public boolean undo()
 	{
-		if(!this.history.empty()) {
+		if (!this.history.empty())
+		{
 			Memento lastState = this.history.pop();
 			if (lastState != null)
 			{
 				lastState.restore();
 			}
 			return true;
-		} else {
+		} else
+		{
 			return false;
 		}
-		
 	}
+
+	public void saveState()
+	{
+		this.history.push(this.actuator.save());
+	}
+
 }
