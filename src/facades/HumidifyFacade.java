@@ -12,26 +12,41 @@ import actuators.Heater;
 import actuators.HeaterModus;
 import actuators.Sprinkler;
 
+/**
+ * The HumidifyFacade encapsulates all actions related to humidifying the house. 
+ */
 public class HumidifyFacade implements Facade
 {
+	/**
+	 * List of actuators used to increase the humidity level in the SmartHome.
+	 */
 	private ArrayList<ActuatorWrapper> humidifyDevices;
 
+	/**
+	 * Constructs a new HumidityFacade with 0 or more actuators.
+	 * @param actuators Any number of actuators which may be used to increae humidity levels.
+	 */
 	public HumidifyFacade(ActuatorWrapper... actuators)
 	{
 		this.humidifyDevices = new ArrayList<ActuatorWrapper>(Arrays.asList(actuators));
 	}
 
+	/**
+	 * Executes actions on actuators to make sure the air stays humid.
+	 */
 	@Override
 	public void doAction()
 	{
+		// Loop through device list and check for supported actuators.
 		for (ActuatorWrapper actuatorWrapper : this.humidifyDevices)
 		{
-			Actuator actuator = actuatorWrapper.getActuator();
-			// if an actuator is not supported/used by this facade, the state will still be
+			// If an actuator is not supported/used by this facade, the state will still be
 			// saved.
-			// We are aware of this limitation of the current implementation of the memento
+			// We are aware of this limitation of the current implementation of the Memento
 			// design pattern.
+			Actuator actuator = actuatorWrapper.getActuator();
 			actuatorWrapper.saveState();
+			
 			if (actuator instanceof Fan)
 			{
 				((Fan) actuator).setRpmLevel(10);
@@ -53,7 +68,6 @@ public class HumidifyFacade implements Facade
 				System.err.println("Invalid actuator!");
 				continue;
 			}
-			actuator.doOperation();
 		}
 
 	}
