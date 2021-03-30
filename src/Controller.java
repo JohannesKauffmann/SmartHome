@@ -1,18 +1,24 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
-
 import actuators.*;
 import facades.Facade;
 import sensors.*;
 import subscribers.Subscriber;
 
+
+/**
+ * Controller class is the object in the application that holds all the sensors,
+ * facades and actuators. *
+ */
 public class Controller implements Subscriber
 {
 	private ArrayList<ActuatorWrapper> actuators;
 	private ArrayList<Sensor> sensors;
 	private HashMap<String, Facade> facades;
 
+	/**
+	 * Constructor for controller, this only will initialize the lists.
+	 */
 	public Controller()
 	{
 		this.actuators = new ArrayList<>();
@@ -20,6 +26,9 @@ public class Controller implements Subscriber
 		this.facades = new HashMap<>();
 	}
 
+	/**
+	 * This methods will print all sensor that are present in the controller.
+	 */
 	public void printSensors()
 	{
 		System.out.println("Sensors: ");
@@ -29,6 +38,9 @@ public class Controller implements Subscriber
 		}
 	}
 
+	/**
+	 * This method will print all facade that are present in the controller.
+	 */
 	public void printFacades()
 	{
 		System.out.println("Facades:");
@@ -38,18 +50,21 @@ public class Controller implements Subscriber
 		}
 	}
 
-	public Facade getFacade(String FacadeName)
+	/**
+	 * This method will get a facade by name.
+	 * @param facadeName the name of the facade we want to get.
+	 * @return the facade with the given name or null if not found.
+	 */
+	public Facade getFacade(String facadeName)
 	{
-		for (Entry<String, Facade> entry : this.facades.entrySet())
-		{
-			if (entry.getKey().equals(FacadeName))
-			{
-				return entry.getValue();
-			}
-		}
-		return null;
+		return this.facades.get(facadeName);
 	}
 
+	/**
+	 * This method will get a sensor by name.
+	 * @param sensorName the name of the sensor we want to get.
+	 * @return the sensor with the given name or null if not found.
+	 */
 	public Sensor getSensor(String sensorName)
 	{
 		for (Sensor sensor : this.sensors)
@@ -62,34 +77,62 @@ public class Controller implements Subscriber
 		return null;
 	}
 
+	/**
+	 * add a sensor to this controller.
+	 * @param sensor the sensor to add.
+	 */
 	public void addSensor(Sensor sensor)
 	{
 		this.sensors.add(sensor);
 	}
 
+	/**
+	 * add a given actuator(wrapper) to this controller.
+	 * @param actuatorWrapper the actuator to add.
+	 */
 	public void addActuator(ActuatorWrapper actuatorWrapper)
 	{
 		this.actuators.add(actuatorWrapper);
 	}
 
+	/**
+	 * add a facade and it's name to this controller.
+	 * @param name the name of the facade.
+	 * @param facade The facade to add.
+	 */
 	public void addFacade(String name, Facade facade)
 	{
 		this.facades.put(name, facade);
 	}
 
-	public void executeFacade(String facadeName)
+	/**
+	 * execute the facade with the given name.
+	 * @param facadeName
+	 * @return boolean: true if the facade was found and executed, otherwise false.
+	 */
+	public boolean executeFacade(String facadeName)
 	{
 		Facade facade = this.facades.get(facadeName);
+		//check if facade is null, this can happen when there is no facade with given name.
 		if (facade != null)
 		{
 			facade.doAction();
+			return true;
 		}
+		return false;
 	}
 
+	/**
+	 * get an actuatorWrapper by the actuator name.
+	 * @param actuatorName
+	 * @return
+	 */
 	public ActuatorWrapper getActuator(String actuatorName)
 	{
+		//loop through actuatorWrappers
 		for (ActuatorWrapper actuatorWrapper : this.actuators)
 		{
+			//if the name of the actuator in the actuatorWrapper equals to the given name, return.
 			if (actuatorWrapper.getActuator().getName().equals(actuatorName))
 			{
 				return actuatorWrapper;
@@ -98,15 +141,25 @@ public class Controller implements Subscriber
 		return null;
 	}
 
+	/**
+	 * method for printing all actuators in the controller.
+	 */
 	public void printActuators()
 	{
 		System.out.println("Actuators:");
 		for (ActuatorWrapper actuatorWrapper : this.actuators)
 		{
+			//Actuator overrides the toString method.
 			System.out.println(actuatorWrapper.getActuator());
 		}
 	}
 
+	/**
+	 *Controller is a Subscriber, (observer pattern). Therefore it implements the update method.
+	 *
+	 *We had to implement some logic what happen when there was a new value of a sensor.
+	 *This method will execute a facade based on the type and value of the publisher.
+	 */
 	@Override
 	public void update(Sensor publisher, int value)
 	{

@@ -3,8 +3,15 @@ package actuators;
 import mementos.Memento;
 import mementos.SprinklerMemento;
 
+/**
+ * Concrete implementation of the actuator class.
+ */
 public class Sprinkler extends Actuator
 {
+	
+	/**
+	 * modus/state of this sprinkler.
+	 */
 	private boolean isSprinkling;
 
 	public Sprinkler(String name)
@@ -25,16 +32,26 @@ public class Sprinkler extends Actuator
 		this.name = name;
 	}
 
+	/**
+	 * @return true if the sprinkler is sprinkling (state==true) otherwise false.
+	 */
 	public boolean isSprinkling()
 	{
 		return this.isSprinkling;
 	}
 
+	/**
+	 * set the state of this sprinkler.
+	 * @param state the new state for this sprinkler.
+	 */
 	public void setSprinklerState(boolean state)
 	{
 		this.isSprinkling = state;
 	}
 
+	/**
+	 * switch the sprinkler state.
+	 */
 	public void switchSprinklingState()
 	{
 		if (this.isSprinkling)
