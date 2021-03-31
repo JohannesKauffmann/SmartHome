@@ -1,6 +1,5 @@
 package actuators;
 
-
 /**
  * Enum for different Heater modes.
  */

@@ -8,7 +8,7 @@ import mementos.SprinklerMemento;
  */
 public class Sprinkler extends Actuator
 {
-	
+
 	/**
 	 * modus/state of this sprinkler.
 	 */
@@ -42,6 +42,7 @@ public class Sprinkler extends Actuator
 
 	/**
 	 * set the state of this sprinkler.
+	 * 
 	 * @param state the new state for this sprinkler.
 	 */
 	public void setSprinklerState(boolean state)
@@ -57,8 +58,7 @@ public class Sprinkler extends Actuator
 		if (this.isSprinkling)
 		{
 			this.isSprinkling = false;
-		}
-		else
+		} else
 		{
 			this.isSprinkling = true;
 		}

@@ -8,7 +8,7 @@ import mementos.Memento;
  */
 public class Heater extends Actuator
 {
-	
+
 	/**
 	 * The modus/state of this Heater.
 	 */
@@ -40,6 +40,7 @@ public class Heater extends Actuator
 
 	/**
 	 * Setter for the modus of this heater
+	 * 
 	 * @param modus the new HeaterModus
 	 */
 	public void setModus(HeaterModus modus)
@@ -49,6 +50,7 @@ public class Heater extends Actuator
 
 	/**
 	 * Getter for the modus of this heater
+	 * 
 	 * @return the current modus.
 	 */
 	public HeaterModus getModus()

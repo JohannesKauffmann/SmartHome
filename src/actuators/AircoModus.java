@@ -1,7 +1,7 @@
 package actuators;
 
 /**
- *Enum for the different airco modes
+ * Enum for the different airco modes
  */
 public enum AircoModus
 {

@@ -5,7 +5,6 @@ import facades.Facade;
 import sensors.*;
 import subscribers.Subscriber;
 
-
 /**
  * Controller class is the object in the application that holds all the sensors,
  * facades and actuators. *
@@ -52,6 +51,7 @@ public class Controller implements Subscriber
 
 	/**
 	 * This method will get a facade by name.
+	 * 
 	 * @param facadeName the name of the facade we want to get.
 	 * @return the facade with the given name or null if not found.
 	 */
@@ -62,6 +62,7 @@ public class Controller implements Subscriber
 
 	/**
 	 * This method will get a sensor by name.
+	 * 
 	 * @param sensorName the name of the sensor we want to get.
 	 * @return the sensor with the given name or null if not found.
 	 */
@@ -79,6 +80,7 @@ public class Controller implements Subscriber
 
 	/**
 	 * add a sensor to this controller.
+	 * 
 	 * @param sensor the sensor to add.
 	 */
 	public void addSensor(Sensor sensor)
@@ -88,6 +90,7 @@ public class Controller implements Subscriber
 
 	/**
 	 * add a given actuator(wrapper) to this controller.
+	 * 
 	 * @param actuatorWrapper the actuator to add.
 	 */
 	public void addActuator(ActuatorWrapper actuatorWrapper)
@@ -97,7 +100,8 @@ public class Controller implements Subscriber
 
 	/**
 	 * add a facade and it's name to this controller.
-	 * @param name the name of the facade.
+	 * 
+	 * @param name   the name of the facade.
 	 * @param facade The facade to add.
 	 */
 	public void addFacade(String name, Facade facade)
@@ -107,13 +111,15 @@ public class Controller implements Subscriber
 
 	/**
 	 * execute the facade with the given name.
+	 * 
 	 * @param facadeName
 	 * @return boolean: true if the facade was found and executed, otherwise false.
 	 */
 	public boolean executeFacade(String facadeName)
 	{
 		Facade facade = this.facades.get(facadeName);
-		//check if facade is null, this can happen when there is no facade with given name.
+		// check if facade is null, this can happen when there is no facade with given
+		// name.
 		if (facade != null)
 		{
 			facade.doAction();
@@ -124,15 +130,17 @@ public class Controller implements Subscriber
 
 	/**
 	 * get an actuatorWrapper by the actuator name.
+	 * 
 	 * @param actuatorName
 	 * @return
 	 */
 	public ActuatorWrapper getActuator(String actuatorName)
 	{
-		//loop through actuatorWrappers
+		// loop through actuatorWrappers
 		for (ActuatorWrapper actuatorWrapper : this.actuators)
 		{
-			//if the name of the actuator in the actuatorWrapper equals to the given name, return.
+			// if the name of the actuator in the actuatorWrapper equals to the given name,
+			// return.
 			if (actuatorWrapper.getActuator().getName().equals(actuatorName))
 			{
 				return actuatorWrapper;
@@ -149,16 +157,18 @@ public class Controller implements Subscriber
 		System.out.println("Actuators:");
 		for (ActuatorWrapper actuatorWrapper : this.actuators)
 		{
-			//Actuator overrides the toString method.
+			// Actuator overrides the toString method.
 			System.out.println(actuatorWrapper.getActuator());
 		}
 	}
 
 	/**
-	 *Controller is a Subscriber, (observer pattern). Therefore it implements the update method.
+	 * Controller is a Subscriber, (observer pattern). Therefore it implements the
+	 * update method.
 	 *
-	 *We had to implement some logic what happen when there was a new value of a sensor.
-	 *This method will execute a facade based on the type and value of the publisher.
+	 * We had to implement some logic what happen when there was a new value of a
+	 * sensor. This method will execute a facade based on the type and value of the
+	 * publisher.
 	 */
 	@Override
 	public void update(Sensor publisher, int value)
@@ -170,12 +180,10 @@ public class Controller implements Subscriber
 			if (value <= 20)
 			{
 				facade = this.facades.get("heating");
-			}
-			else if (value >= 25)
+			} else if (value >= 25)
 			{
 				facade = this.facades.get("cooling");
-			}
-			else
+			} else
 			{
 				// do nothing
 			}
@@ -187,20 +195,17 @@ public class Controller implements Subscriber
 				System.out.println("Executed all actions that followed because of an updated temperature!");
 				System.out.println();
 			}
-		}
-		else if (publisher instanceof HumiditySensor)
+		} else if (publisher instanceof HumiditySensor)
 		{
 			Facade facade = null;
 
 			if (value <= 40)
 			{
 				facade = this.facades.get("humidifying");
-			}
-			else if (value >= 60)
+			} else if (value >= 60)
 			{
 				facade = facades.get("drying");
-			}
-			else
+			} else
 			{
 				// do nothing
 			}

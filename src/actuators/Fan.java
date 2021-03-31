@@ -8,7 +8,7 @@ import mementos.Memento;
  */
 public class Fan extends Actuator
 {
-	
+
 	/**
 	 * state of this fan.
 	 */
@@ -35,6 +35,7 @@ public class Fan extends Actuator
 
 	/**
 	 * setter for the state of this fan.
+	 * 
 	 * @param rpmLevel the new state
 	 */
 	public void setRpmLevel(int rpmLevel)
@@ -44,6 +45,7 @@ public class Fan extends Actuator
 
 	/**
 	 * getter for the current state of this fan.
+	 * 
 	 * @return the rpmLevel of this fan (state).
 	 */
 	public int getRpmLevel()
@@ -53,6 +55,7 @@ public class Fan extends Actuator
 
 	/**
 	 * Increment the rpmLevel of this fan.
+	 * 
 	 * @return new rpmLevel
 	 */
 	public int incrementRpmLevel()
@@ -63,6 +66,7 @@ public class Fan extends Actuator
 
 	/**
 	 * Decrement the rpmLevel of this fan.
+	 * 
 	 * @return new rpmLevel
 	 */
 	public int decrementRpmLevel()

@@ -7,20 +7,20 @@ import java.util.Stack;
 import commands.Command;
 import mementos.Memento;
 
-
 /**
- * The actuatorWrapper is a class that wraps all the functionality of an actuator.
- * It holds all the possible commands for this actuator and is the care taker of the actuator(memento pattern).
+ * The actuatorWrapper is a class that wraps all the functionality of an
+ * actuator. It holds all the possible commands for this actuator and is the
+ * care taker of the actuator(memento pattern).
  *
  */
 public class ActuatorWrapper
 {
-	
+
 	/**
 	 * The stack with the previous states (memento pattern).
 	 */
 	private Stack<Memento> history;
-	
+
 	/**
 	 * all possible commands for this actuator with corresponding names.
 	 */
@@ -36,6 +36,7 @@ public class ActuatorWrapper
 
 	/**
 	 * add a command to the actuator wrapper.
+	 * 
 	 * @param commandName
 	 * @param command
 	 */
@@ -46,6 +47,7 @@ public class ActuatorWrapper
 
 	/**
 	 * Getter for a specific command.
+	 * 
 	 * @param commandName the name of the command.
 	 * @return the Command with the given name, or null if not found.
 	 */
@@ -56,6 +58,7 @@ public class ActuatorWrapper
 
 	/**
 	 * Delete the command with a given name.
+	 * 
 	 * @param commandName
 	 */
 	public void deleteCommand(String commandName)
@@ -66,9 +69,11 @@ public class ActuatorWrapper
 	public void executeCommand(String commandName)
 	{
 		Command command = this.commands.get(commandName);
-		
-		if(command != null) {
-			// save the state of the actuator before executing the command (memento pattern).
+
+		if (command != null)
+		{
+			// save the state of the actuator before executing the command (memento
+			// pattern).
 			saveState();
 
 			this.commands.get(commandName).execute();
@@ -77,6 +82,7 @@ public class ActuatorWrapper
 
 	/**
 	 * getter of the actuator which is stored in this actuatorWrapper.
+	 * 
 	 * @return the actuator of this wrapper.
 	 */
 	public Actuator getActuator()
@@ -96,23 +102,23 @@ public class ActuatorWrapper
 	}
 
 	/**
-	 * The undo action of the memento pattern.
-	 * This method will restore the actuator to an earlier state.
+	 * The undo action of the memento pattern. This method will restore the actuator
+	 * to an earlier state.
+	 * 
 	 * @return
 	 */
 	public boolean undo()
 	{
 		if (!this.history.empty())
 		{
-			//get last memento from stack
+			// get last memento from stack
 			Memento lastState = this.history.pop();
 			if (lastState != null)
 			{
 				lastState.restore();
 			}
 			return true;
-		}
-		else
+		} else
 		{
 			System.err.println("No states to undo!");
 			return false;

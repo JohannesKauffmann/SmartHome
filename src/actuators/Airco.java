@@ -3,13 +3,12 @@ package actuators;
 import mementos.AircoMemento;
 import mementos.Memento;
 
-
 /**
  * Concrete implementation of the actuator class.
  */
 public class Airco extends Actuator
 {
-	
+
 	/**
 	 * modus/state of this airco.
 	 */
@@ -37,6 +36,7 @@ public class Airco extends Actuator
 
 	/**
 	 * setter for the airco modus of this airco.
+	 * 
 	 * @param state The new aircoModus
 	 */
 	public void setModus(AircoModus state)
@@ -46,6 +46,7 @@ public class Airco extends Actuator
 
 	/**
 	 * getter for the airco modus of this airco.
+	 * 
 	 * @return the current aircoModus.
 	 */
 	public AircoModus getModus()

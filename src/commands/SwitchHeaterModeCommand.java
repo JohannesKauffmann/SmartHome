@@ -19,7 +19,7 @@ public class SwitchHeaterModeCommand implements Command
 	}
 
 	/**
-	 *The implementation of the execute method from the Command interface
+	 * The implementation of the execute method from the Command interface
 	 */
 	@Override
 	public void execute()

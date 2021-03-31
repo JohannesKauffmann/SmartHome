@@ -2,7 +2,6 @@ package commands;
 
 import actuators.Fan;
 
-
 /**
  * The FanDecrementsRpmCommand is a concrete Command.
  */
@@ -19,7 +18,7 @@ public class FanDecrementRpmCommand implements Command
 	}
 
 	/**
-	 *The implementation of the execute method from the Command interface
+	 * The implementation of the execute method from the Command interface
 	 */
 	@Override
 	public void execute()

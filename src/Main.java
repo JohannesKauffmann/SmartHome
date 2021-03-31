@@ -179,7 +179,9 @@ public class Main
 	}
 
 	/**
-	 * This method bundles all the different operations that can be done on an actuator(Wrapper).
+	 * This method bundles all the different operations that can be done on an
+	 * actuator(Wrapper).
+	 * 
 	 * @param actuatorWrapper
 	 */
 	private static void doActuatorAction(ActuatorWrapper actuatorWrapper)
@@ -243,9 +245,11 @@ public class Main
 	}
 
 	/**
-	 * This method gives the user the possibility to execute an action on the before selected actuator.
-	 * This method will get a command by name, then it will save the state of the actuator(Memento pattern).
-	 * After the saving of the state, the command will be executed.
+	 * This method gives the user the possibility to execute an action on the before
+	 * selected actuator. This method will get a command by name, then it will save
+	 * the state of the actuator(Memento pattern). After the saving of the state,
+	 * the command will be executed.
+	 * 
 	 * @param actuatorWrapper
 	 */
 	private static void executeCommand(ActuatorWrapper actuatorWrapper)
