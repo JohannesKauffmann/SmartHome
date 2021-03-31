@@ -3,8 +3,14 @@ package commands;
 import actuators.Heater;
 import actuators.HeaterModus;
 
+/**
+ * The SwitchHeaterModeCommand is a concrete Command.
+ */
 public class SwitchHeaterModeCommand implements Command
 {
+	/**
+	 * The receiver is the object which does the actual work
+	 */
 	private Heater receiver;
 
 	public SwitchHeaterModeCommand(Heater heater)
@@ -12,6 +18,9 @@ public class SwitchHeaterModeCommand implements Command
 		this.receiver = heater;
 	}
 
+	/**
+	 * The implementation of the execute method from the Command interface
+	 */
 	@Override
 	public void execute()
 	{

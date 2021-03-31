@@ -7,6 +7,10 @@ import facades.*;
 import sensors.*;
 import subscribers.Phone;
 
+/**
+ * This class implements the logic for the console application. It will
+ * initialize a new made Controller and start the read line methods.
+ */
 public class Main
 {
 	// create new scanner for reading user input.
@@ -24,6 +28,10 @@ public class Main
 
 	}
 
+	/**
+	 * This method is the start point for the console application. Based on the
+	 * input it will call another method.
+	 */
 	private static void homeScreen()
 	{
 		while (true)
@@ -88,6 +96,10 @@ public class Main
 		System.out.println("\nReturning to home screen...\n");
 	}
 
+	/**
+	 * This method will create a 'screen' in the command line application. The user
+	 * is able to put in a name. The corresponding face will be executed.
+	 */
 	private static void executeFacade()
 	{
 		while (true)
@@ -98,19 +110,21 @@ public class Main
 			{
 				return;
 			}
-			Facade facade = controller.getFacade(input);
-			if (facade != null)
+			if (controller.executeFacade(input))
 			{
-				facade.doAction();
 				System.out.println("Executed Facade");
-			}
-			else
+			} else
 			{
 				System.err.println("Facade '" + input.toString() + "' not found.");
 			}
 		}
 	}
 
+	/**
+	 * This method give the user the possibility to let a sensor measure a new
+	 * value. The user can give the name of the sensor, than the corresponding
+	 * sensor will do a measurement.
+	 */
 	private static void doMeasurement()
 	{
 		while (true)
@@ -127,14 +141,18 @@ public class Main
 			{
 				System.out.println("Measuring:\n");
 				sensor.doMeasurement();
-			}
-			else
+			} else
 			{
 				System.err.println("Sensor '" + input.toString() + "' not found.");
 			}
 		}
 	}
 
+	/**
+	 * This method generates the 'actuator screen'. Multiple action are possible on
+	 * an actuator(wrapper). Therefore, a new screen is created with the possibility
+	 * to do actions on the actuator.
+	 */
 	private static void actuatorScreen()
 	{
 		while (true)
@@ -152,8 +170,7 @@ public class Main
 			{
 				System.out.println("Selected actuator: " + input);
 				doActuatorAction(actuatorWrapper);
-			}
-			else
+			} else
 			{
 				System.err.println("Actuator '" + input.toString() + "' not found.");
 			}
@@ -161,6 +178,12 @@ public class Main
 
 	}
 
+	/**
+	 * This method bundles all the different operations that can be done on an
+	 * actuator(Wrapper).
+	 * 
+	 * @param actuatorWrapper
+	 */
 	private static void doActuatorAction(ActuatorWrapper actuatorWrapper)
 	{
 		while (true)
@@ -181,8 +204,7 @@ public class Main
 				if (actuatorWrapper.undo())
 				{
 					System.out.println("Undoed selected actuator");
-				}
-				else
+				} else
 				{
 					System.err.println("This actuator doesn't have a history yet.");
 				}
@@ -201,7 +223,7 @@ public class Main
 	}
 
 	/*
-	 * Prints help message for the actuator screen.
+	 * Prints all possible commands in the actuator screen.
 	 */
 	private static void actuatorScreenHelp()
 	{
@@ -213,7 +235,8 @@ public class Main
 		System.out.println();
 		System.out.format("%1$-15s  =>  %2$-40s", "-undo", "Revert this actuator to its previous state.");
 		System.out.println();
-		System.out.format("%1$-15s  =>  %2$-40s", "-printCommands", "Prints a list of commands which can be executed on this actuator.");
+		System.out.format("%1$-15s  =>  %2$-40s", "-printCommands",
+				"Prints a list of commands which can be executed on this actuator.");
 		System.out.println();
 		System.out.format("%1$-15s  =>  %2$-40s", "-executeCommand", "Pick a command and excute it.");
 		System.out.println();
@@ -221,6 +244,14 @@ public class Main
 		System.out.println("\nReturning to actuator screen...\n");
 	}
 
+	/**
+	 * This method gives the user the possibility to execute an action on the before
+	 * selected actuator. This method will get a command by name, then it will save
+	 * the state of the actuator(Memento pattern). After the saving of the state,
+	 * the command will be executed.
+	 * 
+	 * @param actuatorWrapper
+	 */
 	private static void executeCommand(ActuatorWrapper actuatorWrapper)
 	{
 		while (true)
@@ -238,8 +269,7 @@ public class Main
 				actuatorWrapper.saveState();
 				command.execute();
 				System.out.println("Command executed!");
-			}
-			else
+			} else
 			{
 				System.err.println("Command with name '" + input.toString() + "' not found.");
 			}
@@ -313,6 +343,7 @@ public class Main
 		Facade dryingFacade = new DryingFacade(heaterWrapper, fanWrapper, aircoWrapper);
 		Facade humidfyFacade = new HumidifyFacade(heaterWrapper, fanWrapper, aircoWrapper, sprinklerWrapper);
 
+		// add all facades to the application
 		controller.addFacade("heating", heatingFacade);
 		controller.addFacade("cooling", coolingFacade);
 		controller.addFacade("drying", dryingFacade);
