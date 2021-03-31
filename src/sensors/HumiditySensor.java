@@ -4,6 +4,11 @@ import java.util.Random;
 
 import subscribers.Subscriber;
 
+/**
+ * 
+ * Concrete sensor that sends updates in humidity changes to subscribers.
+ *
+ */
 public class HumiditySensor extends Sensor
 {
 	private int humidity;
@@ -14,6 +19,9 @@ public class HumiditySensor extends Sensor
 		this.name = name;
 	}
 
+	/**
+	 * Notify the subscribers as part of the observer pattern.
+	 */
 	@Override
 	public void notifySubscribers()
 	{
@@ -23,10 +31,12 @@ public class HumiditySensor extends Sensor
 		}
 	}
 
+	/**
+	 * Generate a humidity measurement.
+	 */
 	@Override
 	public void doMeasurement()
 	{
-		// TODO: measure interval with timer.
 		Random random = new Random();
 		this.humidity = random.nextInt(100);
 		System.out.println("HumiditySensor: " + this.name + " measured the following value: " + this.humidity);
