@@ -46,6 +46,7 @@ public class CoolingFacade implements Facade
 			Actuator actuator = actuatorWrapper.getActuator();
 			actuatorWrapper.saveState();
 
+			// Set the modus of supported actuators.
 			if (actuator instanceof Fan)
 			{
 				((Fan) actuator).setRpmLevel(100);
@@ -63,6 +64,9 @@ public class CoolingFacade implements Facade
 				System.err.println("Invalid actuator!");
 				continue;
 			}
+			
+			// Execute the operation associated with the actuator.
+			actuator.doOperation();
 		}
 	}
 
