@@ -110,25 +110,6 @@ public class Controller implements Subscriber
 	}
 
 	/**
-	 * execute the facade with the given name.
-	 * 
-	 * @param facadeName
-	 * @return boolean: true if the facade was found and executed, otherwise false.
-	 */
-	public boolean executeFacade(String facadeName)
-	{
-		Facade facade = this.facades.get(facadeName);
-		// check if facade is null, this can happen when there is no facade with given
-		// name.
-		if (facade != null)
-		{
-			facade.doAction();
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * get an actuatorWrapper by the actuator name.
 	 * 
 	 * @param actuatorName

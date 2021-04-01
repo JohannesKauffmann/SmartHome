@@ -110,8 +110,10 @@ public class Main
 			{
 				return;
 			}
-			if (controller.executeFacade(input))
+			Facade facade = controller.getFacade(input);
+			if (facade != null)
 			{
+				facade.doAction();
 				System.out.println("Executed Facade");
 			} else
 			{
