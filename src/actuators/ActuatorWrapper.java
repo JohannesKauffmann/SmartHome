@@ -95,7 +95,7 @@ public class ActuatorWrapper
 	 * The undo action of the memento pattern. This method will restore the actuator
 	 * to an earlier state.
 	 * 
-	 * @return boolean
+	 * @return boolean True if last state was restored, false if there was no history to undo.
 	 */
 	public boolean undo()
 	{
