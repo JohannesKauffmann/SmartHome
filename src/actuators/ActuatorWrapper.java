@@ -56,16 +56,6 @@ public class ActuatorWrapper
 		return this.commands.get(commandName);
 	}
 
-	/**
-	 * Delete the command with a given name.
-	 * 
-	 * @param commandName
-	 */
-	public void deleteCommand(String commandName)
-	{
-		this.commands.remove(commandName);
-	}
-
 	public void executeCommand(String commandName)
 	{
 		Command command = this.commands.get(commandName);
@@ -105,7 +95,7 @@ public class ActuatorWrapper
 	 * The undo action of the memento pattern. This method will restore the actuator
 	 * to an earlier state.
 	 * 
-	 * @return
+	 * @return boolean True if last state was restored, false if there was no history to undo.
 	 */
 	public boolean undo()
 	{
